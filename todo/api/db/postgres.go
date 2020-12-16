@@ -70,3 +70,17 @@ func (p *Postgres) Delete(id int) error {
 func (p *Postgres) Close() {
 	p.DB.Close()
 }
+
+func ConnectPostgres() (*Postgres, error) {
+	connStr := "postgres://postgres:postgres@postgres/postgres?sslmode=disable"
+	db, err := sql.Open("postgres", connStr)
+	if err != nil {
+		return nil, err
+	}
+
+	err = db.Ping()
+	if err != nil {
+		return nil, err
+	}
+	return &Postgres{db}, nil
+}
