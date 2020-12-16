@@ -3,7 +3,7 @@ package db
 import (
 	"context"
 
-	"github.com/ngoprek-kubernetes/kudemo/todo/schema"
+	"github.com/ngoprek-kubernetes/kudemo/todo/api/schema"
 )
 
 const repoKey = "repoKey"

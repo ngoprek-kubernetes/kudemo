@@ -3,7 +3,7 @@ package db
 import (
 	"time"
 
-	"github.com/ngoprek-kubernetes/kudemo/todo/schema"
+	"github.com/ngoprek-kubernetes/kudemo/todo/api/schema"
 )
 
 type Static struct{}

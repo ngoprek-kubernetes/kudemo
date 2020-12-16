@@ -5,9 +5,9 @@ import (
 	"io/ioutil"
 	"net/http"
 
-	"github.com/ngoprek-kubernetes/kudemo/todo/db"
-	"github.com/ngoprek-kubernetes/kudemo/todo/schema"
-	"github.com/ngoprek-kubernetes/kudemo/todo/service"
+	"github.com/ngoprek-kubernetes/kudemo/todo/api/db"
+	"github.com/ngoprek-kubernetes/kudemo/todo/api/schema"
+	"github.com/ngoprek-kubernetes/kudemo/todo/api/service"
 )
 
 type todoHandler struct {

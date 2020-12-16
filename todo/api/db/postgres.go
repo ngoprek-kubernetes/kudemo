@@ -3,7 +3,7 @@ package db
 import (
 	"database/sql"
 
-	"github.com/ngoprek-kubernetes/kudemo/todo/schema"
+	"github.com/ngoprek-kubernetes/kudemo/todo/api/schema"
 )
 
 type Postgres struct {
@@ -36,7 +36,7 @@ func (p *Postgres) GetAll() ([]schema.Todo, error) {
 func (p *Postgres) Insert(todo *schema.Todo) (int, error) {
 	query := `
 		INSERT INTO todo (id, title, note, deadline)
-		VALUES(nextval(todo_id), $1, $2, $3)
+		VALUES(nextval('todo_id'), $1, $2, $3)
 		RETURNING id;
 	`
 

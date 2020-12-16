@@ -1,0 +1,16 @@
+version: "3.8"
+
+services:
+  postgres:
+    build: "./postgres"
+    restart: "always"
+    environment:
+      POSTGRES_DB: "postgres"
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "postgres"
+  todo-api:
+    build: "./api"
+    depends_on:
+      - postgres
+    ports:
+      - 8080:8080

@@ -5,8 +5,9 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/ngoprek-kubernetes/kudemo/todo/db"
-	"github.com/ngoprek-kubernetes/kudemo/todo/handler"
+	_ "github.com/lib/pq"
+	"github.com/ngoprek-kubernetes/kudemo/todo/api/db"
+	"github.com/ngoprek-kubernetes/kudemo/todo/api/handler"
 )
 
 func main() {
@@ -20,7 +21,7 @@ func main() {
 		panic("postgres is unreachable")
 	}
 
-	mux := handler.InitRoutes()
+	mux := handler.InitRoutes(postgres)
 	fmt.Println("http://localhost:8080")
 	log.Fatal(http.ListenAndServe(":8080", mux))
 }

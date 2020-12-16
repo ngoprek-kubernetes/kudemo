@@ -3,12 +3,13 @@ package handler
 import (
 	"net/http"
 
-	"github.com/ngoprek-kubernetes/kudemo/todo/db"
+	"github.com/ngoprek-kubernetes/kudemo/todo/api/db"
 )
 
-func InitRoutes() *http.ServeMux {
+func InitRoutes(postgres *db.Postgres) *http.ServeMux {
 	todoHandler := &todoHandler{
-		static: &db.Static{},
+		postgres: postgres,
+		static:   &db.Static{},
 	}
 	mux := http.NewServeMux()
 	mux.HandleFunc("/static", todoHandler.GetStatic)
