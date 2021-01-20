@@ -16,6 +16,10 @@ type todoHandler struct {
 }
 
 func (h *todoHandler) GetStatic(w http.ResponseWriter, r *http.Request) {
+	if h.postgres == nil {
+		responseError(w, http.StatusInternalServerError, "must connect to postgres")
+		return
+	}
 	ctx := db.SetRepo(r.Context(), h.static)
 
 	todoList, err := service.GetAll(ctx)
@@ -27,6 +31,10 @@ func (h *todoHandler) GetStatic(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *todoHandler) getAllTodo(w http.ResponseWriter, r *http.Request) {
+	if h.postgres == nil {
+		responseError(w, http.StatusInternalServerError, "must connect to postgres")
+		return
+	}
 	ctx := db.SetRepo(r.Context(), h.postgres)
 
 	todoList, err := service.GetAll(ctx)
@@ -38,6 +46,10 @@ func (h *todoHandler) getAllTodo(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *todoHandler) insertTodo(w http.ResponseWriter, r *http.Request) {
+	if h.postgres == nil {
+		responseError(w, http.StatusInternalServerError, "must connect to postgres")
+		return
+	}
 	ctx := db.SetRepo(r.Context(), h.postgres)
 
 	b, err := ioutil.ReadAll(r.Body)
@@ -62,6 +74,10 @@ func (h *todoHandler) insertTodo(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *todoHandler) deleteTodo(w http.ResponseWriter, r *http.Request) {
+	if h.postgres == nil {
+		responseError(w, http.StatusInternalServerError, "must connect to postgres")
+		return
+	}
 	ctx := db.SetRepo(r.Context(), h.postgres)
 
 	b, err := ioutil.ReadAll(r.Body)

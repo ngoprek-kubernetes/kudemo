@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 
 	_ "github.com/lib/pq"
 	"github.com/ngoprek-kubernetes/kudemo/todo/api/db"
@@ -12,13 +13,14 @@ import (
 
 func main() {
 	var postgres *db.Postgres
-	var err error
-	postgres, err = db.ConnectPostgres()
-	if err != nil {
-		panic(err)
-	}
-	if postgres == nil {
-		panic("postgres is unreachable")
+	if os.Getenv("POSTGRES") == "enabled" {
+		postgres, err := db.ConnectPostgres()
+		if err != nil {
+			panic(err)
+		}
+		if postgres == nil {
+			panic("postgres is unreachable")
+		}
 	}
 
 	mux := handler.InitRoutes(postgres)

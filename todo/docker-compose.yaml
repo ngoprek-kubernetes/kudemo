@@ -5,6 +5,7 @@ services:
     build: "./postgres"
     restart: "always"
     environment:
+      POSTGRES: "enabled"
       POSTGRES_DB: "postgres"
       POSTGRES_USER: "postgres"
       POSTGRES_PASSWORD: "postgres"
