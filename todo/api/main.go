@@ -13,7 +13,10 @@ import (
 
 func main() {
 	var postgres *db.Postgres
-	if os.Getenv("POSTGRES") == "enabled" {
+	if os.Getenv("POSTGRES_ENABLED") == "" {
+		panic("Environment variable POSTGRES_ENABLED must be set")
+	}
+	if os.Getenv("POSTGRES_ENABLED") == "true" {
 		postgres, err := db.ConnectPostgres()
 		if err != nil {
 			panic(err)
