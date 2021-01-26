@@ -16,10 +16,6 @@ type todoHandler struct {
 }
 
 func (h *todoHandler) GetStatic(w http.ResponseWriter, r *http.Request) {
-	if h.postgres == nil {
-		responseError(w, http.StatusInternalServerError, "must connect to postgres")
-		return
-	}
 	ctx := db.SetRepo(r.Context(), h.static)
 
 	todoList, err := service.GetAll(ctx)
