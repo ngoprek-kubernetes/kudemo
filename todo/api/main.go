@@ -13,11 +13,12 @@ import (
 
 func main() {
 	var postgres *db.Postgres
+	var err error
 	if os.Getenv("POSTGRES_ENABLED") == "" {
 		panic("Environment variable POSTGRES_ENABLED must be set")
 	}
 	if os.Getenv("POSTGRES_ENABLED") == "true" {
-		postgres, err := db.ConnectPostgres()
+		postgres, err = db.ConnectPostgres()
 		if err != nil {
 			panic(err)
 		}
@@ -28,5 +29,5 @@ func main() {
 
 	mux := handler.InitRoutes(postgres)
 	fmt.Println("http://localhost:8080")
-	log.Fatal(http.ListenAndServe(":8080", mux))
+	log.Fatal(http.ListenAndServe(":8081", mux))
 }
