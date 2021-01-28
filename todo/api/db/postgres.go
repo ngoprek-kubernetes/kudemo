@@ -42,7 +42,7 @@ func (p *Postgres) Insert(todo *schema.Todo) (int, error) {
 		RETURNING id;
 	`
 
-	rows, err := p.DB.Query(query, todo.ID, todo.Note, todo.Deadline)
+	rows, err := p.DB.Query(query, todo.Title, todo.Note, todo.Deadline)
 	if err != nil {
 		return -1, err
 	}
