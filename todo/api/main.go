@@ -29,5 +29,5 @@ func main() {
 
 	mux := handler.InitRoutes(postgres)
 	fmt.Println("http://localhost:8080")
-	log.Fatal(http.ListenAndServe(":8081", mux))
+	log.Fatal(http.ListenAndServe(":8080", mux))
 }
