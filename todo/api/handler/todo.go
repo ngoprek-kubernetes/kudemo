@@ -69,6 +69,34 @@ func (h *todoHandler) insertTodo(w http.ResponseWriter, r *http.Request) {
 	responseOK(w, id)
 }
 
+func (h *todoHandler) updateTodo(w http.ResponseWriter, r *http.Request) {
+	if h.postgres == nil {
+		responseError(w, http.StatusInternalServerError, "must connect to postgres")
+		return
+	}
+	ctx := db.SetRepo(r.Context(), h.postgres)
+
+	b, err := ioutil.ReadAll(r.Body)
+	if err != nil {
+		responseError(w, http.StatusInternalServerError, err.Error())
+		return
+	}
+
+	var todo schema.Todo
+	if err := json.Unmarshal(b, &todo); err != nil {
+		responseError(w, http.StatusBadRequest, err.Error())
+		return
+	}
+
+	err = service.Update(ctx, &todo)
+	if err != nil {
+		responseError(w, http.StatusInternalServerError, err.Error())
+		return
+	}
+
+	responseOK(w, todo.ID)
+}
+
 func (h *todoHandler) deleteTodo(w http.ResponseWriter, r *http.Request) {
 	if h.postgres == nil {
 		responseError(w, http.StatusInternalServerError, "must connect to postgres")

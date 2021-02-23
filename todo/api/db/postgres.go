@@ -24,10 +24,10 @@ func (p *Postgres) GetAll() ([]schema.Todo, error) {
 		return nil, err
 	}
 
-	var todoList []schema.Todo
+	todoList := []schema.Todo{}
 	for rows.Next() {
 		var t schema.Todo
-		if err := rows.Scan(&t.ID, &t.Title, &t.Note, &t.Deadline); err != nil {
+		if err := rows.Scan(&t.ID, &t.Note, &t.Done); err != nil {
 			return nil, err
 		}
 		todoList = append(todoList, t)
@@ -37,12 +37,12 @@ func (p *Postgres) GetAll() ([]schema.Todo, error) {
 
 func (p *Postgres) Insert(todo *schema.Todo) (int, error) {
 	query := `
-		INSERT INTO todo (id, title, note, deadline)
-		VALUES(nextval('todo_id'), $1, $2, $3)
+		INSERT INTO todo (id, note, done)
+		VALUES(nextval('todo_id'), $1, $2)
 		RETURNING id;
 	`
 
-	rows, err := p.DB.Query(query, todo.Title, todo.Note, todo.Deadline)
+	rows, err := p.DB.Query(query, todo.Note, convertBoolToBit(todo.Done))
 	if err != nil {
 		return -1, err
 	}
@@ -54,6 +54,27 @@ func (p *Postgres) Insert(todo *schema.Todo) (int, error) {
 		}
 	}
 	return id, nil
+}
+
+func (p *Postgres) Update(todo *schema.Todo) error {
+	query := `
+		UPDATE todo
+		SET note = $2, done = $3
+		WHERE id = $1;
+	`
+
+	rows, err := p.DB.Query(query, todo.ID, todo.Note, convertBoolToBit(todo.Done))
+	if err != nil {
+		return err
+	}
+
+	var id int
+	for rows.Next() {
+		if err := rows.Scan(&id); err != nil {
+			return err
+		}
+	}
+	return nil
 }
 
 func (p *Postgres) Delete(id int) error {
@@ -115,4 +136,11 @@ func loadPostgresConfig() (string, error) {
 		os.Getenv("DB_DATABASE"),
 	)
 	return connStr, nil
+}
+
+func convertBoolToBit(val bool) int {
+	if val {
+		return 1
+	}
+	return 0
 }

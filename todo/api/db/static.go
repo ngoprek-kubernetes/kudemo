@@ -1,8 +1,6 @@
 package db
 
 import (
-	"time"
-
 	"github.com/ngoprek-kubernetes/kudemo/todo/api/schema"
 )
 
@@ -11,22 +9,19 @@ type Static struct{}
 func (s *Static) GetAll() ([]schema.Todo, error) {
 	todoList := []schema.Todo{
 		{
-			ID:       1,
-			Title:    "Beli mie instan",
-			Note:     "",
-			Deadline: time.Date(2021, 1, 1, 0, 0, 0, 0, time.UTC),
+			ID:   1,
+			Note: "Beli mie instan",
+			Done: false,
 		},
 		{
-			ID:       2,
-			Title:    "Isi pulsa",
-			Note:     "",
-			Deadline: time.Date(2021, 1, 1, 0, 0, 0, 0, time.UTC),
+			ID:   2,
+			Note: "Isi pulsa",
+			Done: true,
 		},
 		{
-			ID:       3,
-			Title:    "Ambil uang di atm",
-			Note:     "",
-			Deadline: time.Date(2021, 1, 1, 0, 0, 0, 0, time.UTC),
+			ID:   3,
+			Note: "Ambil uang di atm",
+			Done: false,
 		},
 	}
 	return todoList, nil
@@ -34,6 +29,10 @@ func (s *Static) GetAll() ([]schema.Todo, error) {
 
 func (s *Static) Insert(todo *schema.Todo) (int, error) {
 	return 0, nil
+}
+
+func (s *Static) Update(todo *schema.Todo) error {
+	return nil
 }
 
 func (s *Static) Delete(id int) error {
