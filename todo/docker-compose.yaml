@@ -21,3 +21,9 @@ services:
       DB_USER: "postgres"
       DB_DATABASE: "postgres"
       DB_PASSWORD: "postgres"
+  todo-ui:
+    build: "./ui"
+    depends_on:
+      - todo-api
+    ports:
+      - 3000:80

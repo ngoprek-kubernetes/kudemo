@@ -1,5 +1,6 @@
 import axios from 'axios';
 
 export default axios.create({
-    baseURL: 'http://localhost:8080',
+    // For dev running from docker-compose
+    baseURL: "http://localhost:8080",
 });
