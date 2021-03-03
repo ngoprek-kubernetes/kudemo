@@ -1,4 +1,4 @@
-# vuetify-todo
+# kudemo
 
 ## Project setup
 ```
