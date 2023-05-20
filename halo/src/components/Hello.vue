@@ -33,8 +33,13 @@
         >
       </li>
       <li>
-        <a href="https://twitter.com/" target="_blank" rel="noopener"
+        <a href="https://twitter.com/ariscahyadi" target="_blank" rel="noopener"
           >Aris Risdianto</a
+        >
+      </li>
+      <li>
+        <a href="https://twitter.com/onnowpurbo" target="_blank" rel="noopener"
+          >Onno W. Purbo</a
         >
       </li>
     </ul>
