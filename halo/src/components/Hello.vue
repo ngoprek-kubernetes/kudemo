@@ -20,8 +20,8 @@
       </li>
       <br />
       <li>
-        <a href="https://cloudnative.id" target="_blank" rel="noopener"
-          >Talks tentang Cloud Native dan Kubernetes di Indonesia</a
+        <a href="https://community.cncf.io/indonesia/" target="_blank" rel="noopener"
+          >Meetup events tentang Cloud Native dan Kubernetes di Indonesia</a
         >
       </li>
     </ul>
